@@ -36,6 +36,8 @@ class BoundingBoxApp:
         self.image_path = self.img_root / self.imgs[self.idx]
         self.image = Image.open(self.image_path)
         self.photo = ImageTk.PhotoImage(self.image)
+
+        self.canvas.image = self.photo
         self.canvas.create_image(0, 0, image=self.photo, anchor=tk.NW)
         self.canvas.config(width=self.photo.width(), height=self.photo.height())
 
@@ -103,6 +105,8 @@ class BoundingBoxApp:
         npy_path = self.get_npy_path()
         np.save(npy_path, np.array(self.bboxes))
 
+        self.bboxes.clear()
+        self.rect = None
         self.next_image()
 
     def undo(self, event=None):
